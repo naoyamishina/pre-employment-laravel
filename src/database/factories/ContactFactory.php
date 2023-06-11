@@ -15,7 +15,7 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'department_id' => Department::factory()->create()->id,
+            'department_id' => Department::factory(),
             'name'=>$this->faker->name(20),
             'email' => $this->faker->email(),
             'content' => $this->faker->realText(200),
