@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -14,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::orderBy('created_at')->paginate(20);
+        $contacts = Contact::orderBy('created_at', 'desc')->paginate(20);
         return view('contacts.index', compact('contacts'));
     }
 
@@ -25,7 +26,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('contacts.create', compact('departments'));
     }
 
     /**
@@ -36,7 +38,16 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Contact::create([
+            'department_id' => $request->department_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('contacts.index');
     }
 
     /**
