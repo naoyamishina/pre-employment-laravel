@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 use App\Services\ContactServiceInterface;
 use App\Repositories\ContactRepositoryInterface;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ContactService implements ContactServiceInterface
 {
@@ -12,16 +15,26 @@ class ContactService implements ContactServiceInterface
     {
         $this->contactRepository = $contactRepository;
     }
-    public function getContacts()
+
+    /**
+     * @inheritDoc
+     */
+    public function getContacts(): LengthAwarePaginator
     {
         return $this->contactRepository->getContactsAll();
     }
 
-    public function getDepartments()
+    /**
+     * @inheritDoc
+     */
+    public function getDepartments(): Collection
     {
-        return $this->contactRepository->getDepartmentsAll();
+        return $this->contactRepository->getDepartmentsName();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function store($request)
     {
         $data = [

@@ -1,4 +1,5 @@
-<?php
+<?php 
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -15,9 +16,9 @@ class ContactController extends Controller
         $this->contactService = $contactService;
     }
     /**
-     * Display a listing of the resource.
+     * お問い合わせ一覧を表示するメソッド
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response お問い合わせ一覧ビュー
      */
     public function index()
     {
@@ -26,9 +27,9 @@ class ContactController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * お問い合わせ作成画面を表示するメソッド
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response お問い合わせ作成ビュー
      */
     public function create()
     {
@@ -37,10 +38,10 @@ class ContactController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * お問い合わせ内容を保存するメソッド
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\ContactRequest  $request バリデーション通過後のパラメーター
+     * @return \Illuminate\Http\Response お問合せ一覧へリダイレクト
      */
     public function store(ContactRequest $request)
     {
