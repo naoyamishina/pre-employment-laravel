@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
-
 /**
  * Interface ContactRepository
  * お問合せ情報のデータ操作を行うRepository
@@ -15,16 +12,16 @@ interface ContactRepositoryInterface
     /**
      * お問合せ内容を全てページネーション型で取得する。
      *
-     * @return LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getContactsAll(): LengthAwarePaginator;
+    public function getContactsAll(): \Illuminate\Pagination\LengthAwarePaginator;
 
     /**
      * 部署のidと部署名を全てコレクション型で取得する。
      *
-     * @return Collection　
+     * @return \Illuminate\Support\Collection
      */
-    public function getDepartmentsName(): Collection;
+    public function getDepartmentsName(): \Illuminate\Support\Collection;
 
     /**
      * 新規お問合せを保存する。

@@ -2,10 +2,9 @@
 declare(strict_types=1);
 
 namespace App\Services;
+
 use App\Services\ContactServiceInterface;
 use App\Repositories\ContactRepositoryInterface;
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class ContactService implements ContactServiceInterface
 {
@@ -19,7 +18,7 @@ class ContactService implements ContactServiceInterface
     /**
      * @inheritDoc
      */
-    public function getContacts(): LengthAwarePaginator
+    public function getContacts(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return $this->contactRepository->getContactsAll();
     }
@@ -27,7 +26,7 @@ class ContactService implements ContactServiceInterface
     /**
      * @inheritDoc
      */
-    public function getDepartments(): Collection
+    public function getDepartments(): \Illuminate\Support\Collection
     {
         return $this->contactRepository->getDepartmentsName();
     }
