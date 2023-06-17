@@ -1,52 +1,62 @@
-<?php
+<?php 
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
+use App\Services\ContactServiceInterface;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
+    protected $contactService;
+
+    public function __construct(ContactServiceInterface $contactService)
+    {
+        $this->contactService = $contactService;
+    }
+    
     /**
-     * Display a listing of the resource.
+     * お問い合わせ一覧を表示するメソッド
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response お問い合わせ一覧ビュー
      */
     public function index()
     {
-        $contacts = Contact::orderBy('created_at', 'desc')->paginate(20);
-        return view('contacts.index', compact('contacts'));
+        $contacts = $this->contactService->getContacts();
+        return response()->view('contacts.index', compact('contacts'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * お問い合わせ作成画面を表示するメソッド
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response お問い合わせ作成ビュー
      */
     public function create()
     {
-        $departments = Department::all();
-        return view('contacts.create', compact('departments'));
+        $departments = $this->contactService->getDepartments();
+        return response()->view('contacts.create', compact('departments'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * お問い合わせ内容を保存するメソッド
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\ContactRequest  $request バリデーション通過後のパラメーター
+     * @return \Illuminate\Http\Response お問合せ一覧へリダイレクト
      */
     public function store(ContactRequest $request)
     {
-        Contact::create([
-            'department_id' => $request->department_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'content' => $request->content,
-        ]);
+        DB::transaction(function () use ($request) {
+            $this->contactService->createContact(
+                $request->getDepartmentId(), 
+                $request->getName(), 
+                $request->getEmail(), 
+                $request->getContents(), 
+                $request->getAge(), 
+                $request->getGender()
+            );
+        });
 
         return redirect()->route('contacts.index');
     }

@@ -32,4 +32,59 @@ class ContactRequest extends FormRequest
             'content' => ['required', 'max:1000']
             ];
     }
+
+    /**
+     * お問合せ部署
+     * @return int
+     */
+    public function getDepartmentId(): int
+    {
+        return (int) $this->input('department_id');
+    }
+
+    /**
+     * 氏名
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->input('name');
+    }
+
+    /**
+     * メールアドレス
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->input('email');
+    }
+
+    /**
+     * お問合せ内容
+     * @return string
+     */
+    public function getContents(): string
+    {
+        return $this->input('content');
+    }
+
+    /**
+     * 年齢
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return (int) $this->input('age');
+    }
+
+    /**
+     * 性別
+     * @return int
+     */
+    public function getGender(): int
+    {
+        return (int) $this->input('gender');
+    }
+
 }

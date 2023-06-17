@@ -22,6 +22,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('contacts', ContactController::class);
+Route::resource('contacts', ContactController::class)->except(['show', 'edit', 'update', 'destroy']);
 
 require __DIR__.'/auth.php';
