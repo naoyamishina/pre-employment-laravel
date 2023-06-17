@@ -5,22 +5,25 @@
               <h1 class="text-center">
                   お問い合わせフォーム
               </h1>
+              <div class="text-center"><a href="{{ route('contacts.index') }}" class="text-blue-500">お問い合わせ一覧に戻る</a></div>
               <div class="p-6 bg-white border-b border-gray-200">
-              <x-auth-validation-errors class="mb-4" :errors="$errors" />
+              
               <section class="text-gray-600 body-font relative">
               <form method="post" action="{{ route('contacts.store') }}">
-                  @csrf
+                @csrf
+                
               <div class="container px-5 mx-auto">
                   <div class="lg:w-1/2 md:w-2/3 mx-auto">
                   <div class="flex flex-wrap -m-2">
 
                     <div class="p-2 w-full">
                       <div class="relative">
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
                           <label for="department_id" class="leading-7 text-sm text-gray-600">部署名</label>
                           <select name='department_id' class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                               <option value="">選択してください</option>
                               @foreach ($departments as $department)
-                                  <option value="{{ $department->id }}" {{ old('department_id') == $loop->iteration ? 'selected' : '' }}>{{ $department->name }}</option>
+                                  <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
                               @endforeach
                           </select>
                       </div>
