@@ -28,8 +28,15 @@ class ContactRepository implements ContactRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function create(array $data)
+    public function storeContact(int $department_id, string $name, string $email, string $content, int $age, int $gender): Contact
     {
-        return Contact::create($data);
+        return Contact::create([
+            'department_id' => $department_id,
+            'name' => $name,
+            'email' => $email,
+            'content' => $content,
+            'age' => $age,
+            'gender' => $gender,
+        ]);
     }
 }

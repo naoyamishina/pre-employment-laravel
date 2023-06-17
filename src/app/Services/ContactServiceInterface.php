@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Services;
+use App\Models\Contact;
 
 /**
  * Interface ContactService
@@ -26,7 +27,13 @@ interface ContactServiceInterface
     /**
      * 新規お問合せを保存する。
      *
-     * @param  \App\Http\Requests\ContactRequest  $request バリデーション通過後のパラメーター
+     * @param int $department_id 部署ID
+     * @param string $name ユーザー名
+     * @param string $email メールアドレス
+     * @param string $content お問合せ内容
+     * @param int $age 年齢
+     * @param int $gender 性別
+     * @return Contact 作成したお問合せ
      */
-    public function store($request);
+    public function createContact(int $department_id, string $name, string $email, string $content, int $age, int $gender): Contact;
 }

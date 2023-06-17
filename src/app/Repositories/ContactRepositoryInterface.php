@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Repositories;
+use App\Models\Contact;
 
 /**
  * Interface ContactRepository
@@ -26,7 +27,13 @@ interface ContactRepositoryInterface
     /**
      * 新規お問合せを保存する。
      *
-     * @param array $data
+     * @param int $department_id 部署ID
+     * @param string $name ユーザー名
+     * @param string $email メールアドレス
+     * @param string $content お問合せ内容
+     * @param int $age 年齢
+     * @param int $gender 性別
+     * @return Contact
      */
-    public function create(array $data);
+    public function storeContact(int $department_id, string $name, string $email, string $content, int $age, int $gender): Contact;
 }

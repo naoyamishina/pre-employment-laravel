@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Services\ContactServiceInterface;
 use App\Repositories\ContactRepositoryInterface;
+use App\Models\Contact;
 
 class ContactService implements ContactServiceInterface
 {
@@ -34,17 +35,8 @@ class ContactService implements ContactServiceInterface
     /**
      * @inheritDoc
      */
-    public function store($request)
+    public function createContact(int $department_id, string $name, string $email, string $content, int $age, int $gender): Contact
     {
-        $data = [
-            'department_id' => $request->department_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'content' => $request->content,
-    ];
-
-    $this->contactRepository->create($data);
+        return $this->contactRepository->storeContact($department_id, $name, $email, $content, $age, $gender);
     }
 }

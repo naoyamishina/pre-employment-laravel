@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Services\ContactServiceInterface;
+use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
@@ -15,6 +16,7 @@ class ContactController extends Controller
     {
         $this->contactService = $contactService;
     }
+    
     /**
      * お問い合わせ一覧を表示するメソッド
      *
@@ -45,7 +47,17 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        $this->contactService->store($request);
+        DB::transaction(function () use ($request) {
+            $this->contactService->createContact(
+                $request->getDepartmentId(), 
+                $request->getName(), 
+                $request->getEmail(), 
+                $request->getContents(), 
+                $request->getAge(), 
+                $request->getGender()
+            );
+        });
+
         return redirect()->route('contacts.index');
     }
 
