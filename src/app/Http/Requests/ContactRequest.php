@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -86,5 +87,4 @@ class ContactRequest extends FormRequest
     {
         return (int) $this->input('gender');
     }
-
 }
